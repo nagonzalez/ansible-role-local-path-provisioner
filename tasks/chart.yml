@@ -1,0 +1,17 @@
+---
+- name: Install local-path-provisioner helm chart
+  helm:
+    host: "{{ l_helm_host }}"
+    port: "{{ l_helm_port }}"
+    chart:
+      name: "{{ helm_chart.name }}"
+      version: "{{ helm_chart.version }}"
+      source:
+        type: git
+        location: "{{ helm_chart.source.location }}"
+        reference: "{{ helm_chart.source.reference }}"
+        path: "{{ helm_chart.source.path }}"
+    values: "{{ helm_chart['values'] }}"  # really weird. only way to cast as dict()
+    state: present
+    name: "{{ helm_chart.release_name }}"
+    namespace: "{{ helm_chart.namespace }}"

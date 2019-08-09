@@ -1,0 +1,16 @@
+---
+# defaults file for ansible-role-local-path-provisioner
+helm_chart:
+  name: local-path-provisioner
+  version: 0.0.9
+  namespace: local-path-storage
+  release_name: local-path-provisioner
+  source:
+    reference: master
+    location: https://github.com/rancher/local-path-provisioner.git
+    path: deploy/chart
+  values:
+    storageClass:
+      ## Set StorageClass as the default StorageClass
+      ## Ignored if storageClass.create is false
+      defaultClass: true

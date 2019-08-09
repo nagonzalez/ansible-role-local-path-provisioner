@@ -1,0 +1,19 @@
+---
+- name: Get Tiller's ClusterIP.
+  k8s:
+    api_version: v1
+    kind: Service
+    name: tiller-deploy
+    namespace: kube-system
+  register: tiller_service
+
+- name: Set the Helm host and port
+  set_fact:
+    l_helm_host: "{{ tiller_service.result.spec.clusterIP }}"
+    l_helm_port: "{{ tiller_service.result.spec.ports[0].port }}"
+
+- name: Wait for Tiller to become responsive.
+  wait_for:
+    host: "{{ l_helm_host }}"
+    port: "{{ l_helm_port }}"
+    state: started
