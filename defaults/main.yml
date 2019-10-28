@@ -2,7 +2,7 @@
 # defaults file for ansible-role-local-path-provisioner
 helm_chart:
   name: local-path-provisioner
-  version: 0.0.9
+  version: 0.0.11
   namespace: local-path-storage
   release_name: local-path-provisioner
   source:
